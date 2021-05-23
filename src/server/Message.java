@@ -1,7 +1,6 @@
 package server;
 
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,7 +21,8 @@ public class Message{
 		this.timeStamp = dateFormatter.format(currentDate);
 	}
 	
-	public String getMessageAsString() {
+	//Format is: @Username [hh:mm:ss]: Message content
+	public String getFormattedMessage() {
 		//Parse date
 		SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("MM:dd:yyyy HH:mm:ss");
 		SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
@@ -30,13 +30,21 @@ public class Message{
 		try {
 			msgDateTime = dateTimeFormatter.parse(this.timeStamp);
 			String formattedTime = timeFormatter.format(msgDateTime);
-			return "@"+sendingUser.getName()+" ["+formattedTime+"]: "+ messageText;
+			return "@"+getSendingUser().getName()+" ["+formattedTime+"]: "+ messageText;
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
-		return "Internal server error";
+		return "@"+getSendingUser().getName()+"[**:**:**]: " + messageText;
 		
+	}
+	
+	public String getRawMessageText() {
+		return messageText;
+	}
+
+	public User getSendingUser() {
+		return sendingUser;
 	}
 	
 	

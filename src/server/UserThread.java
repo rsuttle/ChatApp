@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
+
 
 public class UserThread implements Runnable{
 	
@@ -37,14 +37,9 @@ public class UserThread implements Runnable{
 		} else {
 			user.receiveMessage("Command not found.");
 		}
-		
-	
-		
-
-
-		
 	}
 
+	//Parse user input and handle accordingly
 	public void run() {
 		try (
 				
@@ -56,7 +51,7 @@ public class UserThread implements Runnable{
 			{
 				String text;
 				while((text = in.readLine()) != null) {
-					long startTime = System.nanoTime();
+					
 					if(text.startsWith("\\")) {
 						handleCommand(text);
 					} else {
@@ -68,19 +63,7 @@ public class UserThread implements Runnable{
 						Message msg = new Message(user,text);
 						user.sendMessage(msg);
 					}
-					long elapsedTime = System.nanoTime() - startTime;
-					
-					double seconds = TimeUnit.SECONDS.convert(elapsedTime, TimeUnit.NANOSECONDS);
-			        double secondDecimalPrecision = (double)elapsedTime / 1000000000.0;
-			        double ms = TimeUnit.MILLISECONDS.convert(elapsedTime, TimeUnit.NANOSECONDS);
-			        double minutes = TimeUnit.MINUTES.convert(elapsedTime, TimeUnit.NANOSECONDS);
-
-			        System.out.printf("Nanoseconds: %d ns\n", elapsedTime );
-			        System.out.printf("Miliseconds: %f ms\n", ms );
-			        System.out.printf("Seconds: %f s\n", seconds);
-			        System.out.printf("Seconds2: %f s\n", secondDecimalPrecision);
-			        System.out.printf("Minutes: %f m\n", minutes);
-			        System.out.println();
+				
 					
 					
 					

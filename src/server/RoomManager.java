@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class RoomManager {
 	private static RoomManager _instance = new RoomManager();
-	private ArrayList<Room> rooms = new ArrayList<Room>();
+	private static ArrayList<Room> rooms = new ArrayList<Room>();
 	
 	private RoomManager() {};
 	
@@ -14,7 +14,7 @@ public class RoomManager {
 	
 	public Boolean addRoom(String name) {
 		//Room already exists
-		if(ifExists(name)) return false;
+		if(RoomManager.doesRoomExist(name)) return false;
 			
 		Room newRoom = new Room(name);
 		rooms.add(newRoom);
@@ -22,9 +22,8 @@ public class RoomManager {
 		
 	}
 	
-	
 	public void removeRoom(String name) {
-		
+		rooms.remove(getRoomByName(name));
 	}
 	
 	public Room getRoomByName(String name) {
@@ -35,7 +34,7 @@ public class RoomManager {
 		return null;
 	}
 	
-	public Boolean ifExists(String roomName) {
+	public static boolean doesRoomExist(String roomName) {
 		for(Room r : rooms) {
 			if(roomName.equals(r.getName())) return true;
 		}

@@ -2,14 +2,13 @@ package server;
 
 import java.util.ArrayList;
 
-public class NameCommand extends Command{
+public class NameCommand implements Command{
 	
 	private String commandName = "\\name";
 	private int minArgs = 1;
 	private int maxArgs = 1;
 
-	@Override
-	public Boolean executeCommand(User user, ArrayList<String> args) {
+	public boolean executeCommand(User user, ArrayList<String> args) {
 		if(!validateArgs(args,user)) return false;
 		
 		
@@ -20,7 +19,6 @@ public class NameCommand extends Command{
 		
 	}
 
-	@Override
 	public String getCommandName() {
 		return this.commandName; 
 	}
@@ -33,7 +31,7 @@ public class NameCommand extends Command{
 		}
 		
 		if(args.size() > maxArgs) {
-			user.receiveMessage("Failed to set name. The \\name command should have only one argument: your desired nickname.");
+			user.receiveMessage("Failed to set name. Your username must contain only one word.");
 			return false;
 		}
 		

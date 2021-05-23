@@ -1,17 +1,17 @@
 package server;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
 
 public class User {
-	private Socket userSocket;
+	private SocketChannel userSocket;
 	private Room currentRoom;
 	private String name = null;
 	
-	public User(Socket s) {
+	public User(SocketChannel s) {
 		this.userSocket = s;
-		//put user in default room for now
+		//Put user in default room (main) 
 		RoomManager rmgr = RoomManager.getInstance();
 		rmgr.getRoomByName("main").addToRoom(this);
 		this.currentRoom = rmgr.getRoomByName("main");
@@ -22,13 +22,19 @@ public class User {
 	}
 	
 	public void sendMessage(Message msg) {
-		currentRoom.broadcastMessage(msg.getMessageAsString(),this);
+		currentRoom.broadcastMessage(msg.getFormattedMessage(),this);
 	}
 	
 	public void receiveMessage(String msg) {
-		try {
-			PrintWriter out = new PrintWriter(userSocket.getOutputStream(),true);
-			out.println(msg);
+		try 
+		{
+			
+			msg += "\r\n";
+			ByteBuffer out = ByteBuffer.wrap(msg.getBytes());
+			while(out.hasRemaining()) {
+				userSocket.write(out);
+		}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -36,8 +42,11 @@ public class User {
 	
 	public Boolean joinRoom(String roomName) {
 		RoomManager rmgr = RoomManager.getInstance();
-		if(!rmgr.ifExists(roomName)) return false;
-		this.currentRoom = rmgr.getRoomByName(roomName);
+		if(!rmgr.doesRoomExist(roomName)) return false;
+		currentRoom.removeFromRoom(this);
+		Room roomToJoin = rmgr.getRoomByName(roomName);
+		roomToJoin.addToRoom(this);
+		currentRoom = roomToJoin;
 		return true;
 		
 	}

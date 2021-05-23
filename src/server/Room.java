@@ -1,20 +1,23 @@
 package server;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 public class Room {
 	private String name;
-	private ArrayList<User> usersInRoom = new ArrayList<User>();
+	private HashSet<User> usersInRoom = new HashSet<User>();
 	
 	public Room(String name) {
 		this.name = name;
 	}
 	
 	public void broadcastMessage(String msg, User sendingUser) {
-		for(User u : usersInRoom) {
-			//if(u != sendingUser) u.receiveMessage(msg);
+		Iterator<User> it = usersInRoom.iterator();
+		while(it.hasNext()) {
+			User u = (User) it.next();
 			u.receiveMessage(msg);
 		}
+	
 	}
 
 	public String getName() {
@@ -25,4 +28,7 @@ public class Room {
 		usersInRoom.add(u);
 	}
 	
+	public void removeFromRoom(User u) {
+		usersInRoom.remove(u);
+	}
 }

@@ -2,15 +2,14 @@ package server;
 
 import java.util.ArrayList;
 
-public class CreateRoomCommand extends Command {
+public class CreateRoomCommand implements Command {
 	private String commandName = "\\create";
 	private int minArgs = 1;
 	private int maxArgs = 1;
 
-	@Override
-	public Boolean executeCommand(User user, ArrayList<String> args) {
+	
+	public boolean executeCommand(User user, ArrayList<String> args) {
 		if(!validateArgs(args,user)) return false;
-		
 		
 		String roomName = args.get(0);
 		RoomManager rmgr = RoomManager.getInstance();
@@ -22,7 +21,7 @@ public class CreateRoomCommand extends Command {
 		return true;
 	}
 
-	@Override
+	
 	public String getCommandName() {
 		return this.commandName;
 	}

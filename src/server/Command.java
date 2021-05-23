@@ -2,12 +2,12 @@ package server;
 
 import java.util.ArrayList;
 
-public abstract class Command {
+public interface Command {
 	
 	
-	public abstract Boolean executeCommand(User user, ArrayList<String> args);
+	public boolean executeCommand(User user, ArrayList<String> args);
 
-	public abstract String getCommandName();
+	public String getCommandName();
 	
 	
 	

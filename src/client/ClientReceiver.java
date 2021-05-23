@@ -3,8 +3,7 @@ package client;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.text.ParseException;
-import java.util.Date;
+
 
 public class ClientReceiver implements Runnable {
 	Socket clientSocket;
@@ -18,7 +17,7 @@ public class ClientReceiver implements Runnable {
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		){
 			//Listen for incoming messages
-			String text;
+			String text = "";
 			while((text = in.readLine()) != null) {
 				System.out.println(text);
 				

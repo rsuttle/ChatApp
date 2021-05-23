@@ -2,15 +2,13 @@ package server;
 
 import java.util.ArrayList;
 
-public class JoinCommand extends Command{
+public class JoinCommand implements Command{
 
 	private String commandName = "\\join";
 	private int minArgs = 1;
 	private int maxArgs = 1;
 	
-	
-	@Override
-	public Boolean executeCommand(User user, ArrayList<String> args) {
+	public boolean executeCommand(User user, ArrayList<String> args) {
 		if(!validateArgs(args,user)) {
 			return false;
 		}
@@ -26,7 +24,7 @@ public class JoinCommand extends Command{
 		
 	}
 	
-	private Boolean validateArgs(ArrayList<String> args, User user) {
+	private boolean validateArgs(ArrayList<String> args, User user) {
 		//Must have exactly one argument
 		if(args == null) {
 			user.receiveMessage("You must enter the name of the room after the \\join command");
@@ -41,7 +39,6 @@ public class JoinCommand extends Command{
 		return true;
 	}
 	
-	@Override
 	public String getCommandName() {
 		return this.commandName;
 	}

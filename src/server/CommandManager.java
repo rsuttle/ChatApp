@@ -7,7 +7,6 @@ public class CommandManager {
 	
 	private HashMap<String,Command> availableCommands = new HashMap<String,Command>();
 	
-	
 	private CommandManager() {};
 	
 	public static CommandManager getInstance() {
@@ -16,13 +15,11 @@ public class CommandManager {
 	
 	public void registerCommand(Command cmd) {
 		availableCommands.put(cmd.getCommandName(),cmd);
-		
 	}
 	
 	public void deregisterCommand(Command cmd) {
 		availableCommands.remove(cmd.getCommandName());
 	}
-	
 	
 	public Boolean commandExists(String cmdString) {
 		return availableCommands.containsKey(cmdString);
