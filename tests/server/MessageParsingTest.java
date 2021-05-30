@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests the message parsing class.
+ *
+ */
 class MessageParsingTest {
 	ReadProgress readProgress;
 

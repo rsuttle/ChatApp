@@ -15,6 +15,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
+/**
+ * Tests basic functionality of the server.
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 class MessageTest {
 	final String ip = "192.168.0.5";

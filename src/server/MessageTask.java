@@ -3,14 +3,26 @@ package server;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Thread that handles a message from a User. Validates arguments, decides if the
+ * message is a command, and then handles thet message accordingly.
+ * 
+ */
 public class MessageTask implements Runnable {
 	
 	private Message msgObject;
 	
+	/**
+	 * 
+	 * @param msg Message object containing the User's message.
+	 */
 	public MessageTask(Message msg) {
 		msgObject = msg;
 	}
 
+	/**
+	 * Handles message.
+	 */
 	@Override
 	public void run() {
 		User sendingUser = msgObject.getSendingUser();
@@ -32,6 +44,10 @@ public class MessageTask implements Runnable {
 	
 	}
 	
+	/**
+	 * Passes the command to the proper class for processing.
+	 * @param text The message text.
+	 */
 	private void handleCommand(String text) {
 		CommandManager cmdmgr = CommandManager.getInstance();
 		

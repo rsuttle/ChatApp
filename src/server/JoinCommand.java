@@ -2,12 +2,24 @@ package server;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * Validates arguments and executes the \join command.
+ *
+ */
 public class JoinCommand implements Command{
 
 	private String commandName = "\\join";
 	private int minArgs = 1;
 	private int maxArgs = 1;
 	
+	/**
+	 * Executes the command.
+	 * @param user User that is executing this command.
+	 * @param args The arguments supplied with this command.
+	 * @return True if command successfully executed, false otherwise (arguments
+	 * were invalid)
+	 */
 	public boolean executeCommand(User user, ArrayList<String> args) {
 		if(!validateArgs(args,user)) {
 			return false;
@@ -24,6 +36,12 @@ public class JoinCommand implements Command{
 		
 	}
 	
+	/**
+	 * Validates the arguments that were supplied with the command.
+	 * @param args Arguments supplied by user.
+	 * @param user User that sent the command and arguments.
+	 * @return True if arguments are valid, false if not.
+	 */
 	private boolean validateArgs(ArrayList<String> args, User user) {
 		//Must have exactly one argument
 		if(args == null) {
@@ -39,6 +57,9 @@ public class JoinCommand implements Command{
 		return true;
 	}
 	
+	/**
+	 * @return The name of this command.
+	 */
 	public String getCommandName() {
 		return this.commandName;
 	}

@@ -6,11 +6,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+/**
+ * Holds information about a message, including the message content, the User that 
+ * sent the message, and the time when the message was sent. 
+ *
+ */
 public class Message{
 	private User sendingUser;
 	private String timeStamp;
 	private String messageText;
 	
+	/**
+	 * Gets the current time and constructs the Message object.
+	 * @param sendingUser User that sent this message.
+	 * @param messageText The text of the message.
+	 */
 	public Message(User sendingUser, String messageText) {
 		this.sendingUser = sendingUser;
 		this.messageText = messageText;
@@ -21,7 +31,10 @@ public class Message{
 		this.timeStamp = dateFormatter.format(currentDate);
 	}
 	
-	//Format is: @Username [hh:mm:ss]: Message content
+	/**
+	 * 
+	 * @return The formatted message. The format is: "@Username [hh:mm:ss]: Message content"
+	 */
 	public String getFormattedMessage() {
 		//Parse date
 		SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("MM:dd:yyyy HH:mm:ss");
@@ -39,10 +52,18 @@ public class Message{
 		
 	}
 	
+	/**
+	 * 
+	 * @return The text of the message, with no formatting.
+	 */
 	public String getRawMessageText() {
 		return messageText;
 	}
 
+	/**
+	 * 
+	 * @return The User that sent this Message.
+	 */
 	public User getSendingUser() {
 		return sendingUser;
 	}

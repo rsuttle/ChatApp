@@ -4,7 +4,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-
+/**
+ * Listens for messages from the server. When message is received, prints the
+ * message to standard output.
+ * 
+ */
 public class ClientReceiver implements Runnable {
 	Socket clientSocket;
 	
@@ -20,11 +24,7 @@ public class ClientReceiver implements Runnable {
 			String text = "";
 			while((text = in.readLine()) != null) {
 				System.out.println(text);
-				
 			}
-			
-		
-			
 		}
 		catch (Exception e) {
 			System.out.println("Error " +e);

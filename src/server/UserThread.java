@@ -6,7 +6,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+/**
+ * This class represents a User's thread. It listens for a user's input,
+ * handles the input, then sends the resulting output to the user.
+ * 
+ * @deprecated
+ */
 public class UserThread implements Runnable{
 	
 	private Socket clientSocket;

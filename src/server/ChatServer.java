@@ -13,6 +13,14 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * The main class of the chat server. Sets up thread pool, default rooms
+ * and commands. Sets up a ServerSocketChannel listening on requested port.
+ * Accepts incoming client connections and messages and handles them accordingly.
+ * 
+ * @author Ryan
+ *
+ */
 public class ChatServer {
 	
 	private static final int MAX_THREADS = 8;
@@ -24,6 +32,14 @@ public class ChatServer {
 	private static RoomManager roomManager;
 	private static CommandManager cmdManager;
 	
+	/**
+	 * Sets up default rooms, commands, and thread pool. Listens for
+	 * new clients and messages from existing clients. Creates a MessageTask
+	 * and puts it into the thread pool.
+	 * 
+	 * @param args Port number to listen on.
+	 * 
+	 */
 	public static void main(String[] args) {
 		
 		//Set up default rooms
@@ -88,6 +104,10 @@ public class ChatServer {
 		
 	}
 	
+	/**
+	 * Creates a ReadProgress object and attaches it to the new connection.
+	 * @param connection The SelectionKey of the incoming connection.
+	 */
 	public static void acceptNewClientConnection(SelectionKey connection) {
 		try {
 			SocketChannel newClient =  serverSocketChannel.accept();
@@ -100,6 +120,11 @@ public class ChatServer {
 		
 	}
 	
+	/**
+	 * 
+	 * @param connection The SelectionKey of the connection.
+	 * @throws IOException Error while reading from message buffer.
+	 */
 	public static void handleIncomingClientMessage(SelectionKey connection) throws IOException {
 		SocketChannel client = (SocketChannel) connection.channel();
 		ReadProgress readProgress = (ReadProgress) connection.attachment();
